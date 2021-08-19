@@ -3,10 +3,10 @@ import './App.css';
 import Board from './Components/Board/Board';
 import initializeDeck from './deck';
 
-function App() {
+function MemoryGame() {
   const [flipped, setFlipped] = useState([]);
   const [cards, setCards] = useState([]);
-  const [solved, setSolved] = useState([]);
+  const [matchedImages, setMatchedImages] = useState([]);
   const [disabled, setDisabled] = useState([]);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ function App() {
       if(sameCardClicked(id)) return
       setFlipped([flipped[0], id])
       if(isMatch(id)){
-        setSolved([...solved, flipped[0], id])
+        setMatchedImages([...matchedImages, flipped[0], id])
         resetCards()
       }
       else {
@@ -64,10 +64,10 @@ function App() {
         flipped={flipped}
         handleClick={handleClick}
         disabled={disabled}
-        solved={solved}
+        matchedImages={matchedImages}
       />
     </div>
   );
 }
 
-export default App;
+export default MemoryGame;

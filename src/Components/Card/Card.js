@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import './Card.css';
 
 export default function Card({
-    handleClick, id, flipped, height, width, type, disabled, solved
+    handleClick, id, flipped, height, width, type, matchedImages
 }) {
     return <div
-        className={`flip-container ${flipped ? flipped: ''}`}
+        className={`card-container ${flipped ? flipped: ''}`}
         style={{
             width,
             height
@@ -14,11 +14,11 @@ export default function Card({
         // onClick={() =>(disabled ? null : handleClick(id))}
         onClick={() => handleClick(id)}
     >
-        <div className="flipper">
+        <div className="card-flipper">
             <img
-                className={solved || flipped ? 'front' : 'back'}
+                className={matchedImages || flipped ? 'card-front-view' : 'card-back-view'}
                 alt=""
-                src={flipped || solved ? `/img/${type}.png` : '/img/back.png'}
+                src={flipped || matchedImages ? `/img/${type}.png` : '/img/defaultImage.png'}
                 style={{
                     width, height
                 }}
@@ -32,7 +32,6 @@ Card.propTypes = {
     id: PropTypes.number.isRequired,
     flipped: PropTypes.bool.isRequired,
     type: PropTypes.string.isRequired,
-    disabled: PropTypes.bool.isRequired,
-    solved: PropTypes.bool.isRequired
+    matchedImages: PropTypes.bool.isRequired
 }
 

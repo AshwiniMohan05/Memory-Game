@@ -7,7 +7,7 @@ export default function Board({
     flipped,
     handleClick,
     disabled,
-    solved
+    matchedImages
 }) {
     return <div className="board">
         {
@@ -21,7 +21,7 @@ export default function Board({
                   flipped={flipped.includes(card.id)}
                   handleClick={handleClick}
                   disabled={disabled}
-                  solved={solved.includes(card.id)}
+                  matchedImages={matchedImages.includes(card.id)}
                 />
             ))
         }
@@ -33,6 +33,6 @@ Board.propTypes = {
     flipped: PropTypes.arrayOf(PropTypes.number).isRequired,
     handleClick: PropTypes.func.isRequired,
     disabled: PropTypes.bool.isRequired,
-    solved: PropTypes.bool.isRequired
+    matchedImages: PropTypes.bool.isRequired
 }
 
