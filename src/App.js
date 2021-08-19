@@ -1,23 +1,71 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
+import Board from './Components/Board/Board';
+import initializeDeck from './deck';
 
 function App() {
+  const [flipped, setFlipped] = useState([]);
+  const [cards, setCards] = useState([]);
+  const [solved, setSolved] = useState([]);
+  const [disabled, setDisabled] = useState([]);
+
+  useEffect(() => {
+    setCards(initializeDeck())
+  }, [])
+
+  useEffect(() => {
+    preLoadedImages()
+  },cards)
+
+  const preLoadedImages = () => {
+    cards.map(card => {
+      const src = `img/${card.type}.png`
+      new Image().src = src
+    })
+  }
+
+  const handleClick = (id) => {
+    setDisabled(true)
+    if(flipped.length === 0){
+      setFlipped([ id])
+      setDisabled(false)
+    }
+    else{
+      if(sameCardClicked(id)) return
+      setFlipped([flipped[0], id])
+      if(isMatch(id)){
+        setSolved([...solved, flipped[0], id])
+        resetCards()
+      }
+      else {
+        setTimeout(resetCards, 2000)
+      }
+    }
+  }  
+
+  const resetCards = () => {
+    setFlipped([])
+    setDisabled(false)
+  }
+
+  const isMatch = id =>{
+    const clickedCard = cards.find((card) => card.id === id);
+    const flippedCard = cards.find((card) => flipped[0] === card.id);
+    return flippedCard.type === clickedCard.type
+  }
+
+  const sameCardClicked = id => flipped.includes(id);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Memory Game</h1>
+      <Board
+        cards={cards}
+        flipped={flipped}
+        handleClick={handleClick}
+        disabled={disabled}
+        solved={solved}
+      />
     </div>
   );
 }
