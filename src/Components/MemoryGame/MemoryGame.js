@@ -14,7 +14,7 @@ function MemoryGame() {
 
   useEffect(() => {
     preLoadedImages()
-  },cards)
+  }, cards)
 
   const preLoadedImages = () => {
     cards.map(card => {
