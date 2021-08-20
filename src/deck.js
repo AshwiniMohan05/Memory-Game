@@ -1,20 +1,9 @@
-function shuffle(array){
-    var currentIndex = array.length,  randomIndex;
-  while (currentIndex !== 0) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-    [array[currentIndex], array[randomIndex]] = [
-      array[randomIndex], array[currentIndex]];
-  }
-
-  return array;
-}
-
+import { shuffle } from "lodash";
 
 export default function initializeDeck() {
     let id = 0;
     const cards = [
-        'signal','snapchat','xing', 'linkedIn',  'reddit', 'pintrest', 'youtube', 
+        'boat','cloudy','crab', 'rainy',  'football', 'summer', 
     ].reduce((acc, type) => {
         acc.push(
             {

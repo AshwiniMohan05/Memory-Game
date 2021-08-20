@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
-import Board from './Components/Board/Board';
-import initializeDeck from './deck';
+import Board from '../Board/Board';
+import initializeDeck from '../../deck';
+import './memoryGame.css'
 
 function MemoryGame() {
   const [flipped, setFlipped] = useState([]);
   const [cards, setCards] = useState([]);
-  const [matchedImages, setMatchedImages] = useState([]);
-  const [disabled, setDisabled] = useState([]);
+  const [matchedImages, setMatchedCards] = useState([]);
 
   useEffect(() => {
     setCards(initializeDeck())
@@ -25,16 +24,14 @@ function MemoryGame() {
   }
 
   const handleClick = (id) => {
-    setDisabled(true)
     if(flipped.length === 0){
-      setFlipped([ id])
-      setDisabled(false)
+      setFlipped([id])
     }
     else{
       if(sameCardClicked(id)) return
       setFlipped([flipped[0], id])
-      if(isMatch(id)){
-        setMatchedImages([...matchedImages, flipped[0], id])
+      if(checkForCardMatchById(id)){
+        setMatchedCards([...matchedImages, flipped[0], id])
         resetCards()
       }
       else {
@@ -45,10 +42,9 @@ function MemoryGame() {
 
   const resetCards = () => {
     setFlipped([])
-    setDisabled(false)
   }
 
-  const isMatch = id =>{
+  const checkForCardMatchById = id => { 
     const clickedCard = cards.find((card) => card.id === id);
     const flippedCard = cards.find((card) => flipped[0] === card.id);
     return flippedCard.type === clickedCard.type
@@ -57,13 +53,12 @@ function MemoryGame() {
   const sameCardClicked = id => flipped.includes(id);
 
   return (
-    <div className="App">
-      <h1>Memory Game</h1>
+    <div>
+      <h1 className="title">Memory Game</h1>
       <Board
         cards={cards}
         flipped={flipped}
         handleClick={handleClick}
-        disabled={disabled}
         matchedImages={matchedImages}
       />
     </div>

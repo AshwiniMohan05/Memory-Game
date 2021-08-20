@@ -5,26 +5,29 @@ import './Card.css';
 export default function Card({
     handleClick, id, flipped, height, width, type, matchedImages
 }) {
-    return <div
-        className={`card-container ${flipped ? flipped: ''}`}
+    const flippedCardStyle = flipped ? flipped: '';
+    const cardView = matchedImages || flipped ? 'card-front-view' : 'card-back-view';
+    return(
+        <div
+        className={`card-container ${flippedCardStyle}`}
         style={{
             width,
             height
         }}
-        // onClick={() =>(disabled ? null : handleClick(id))}
         onClick={() => handleClick(id)}
     >
         <div className="card-flipper">
             <img
-                className={matchedImages || flipped ? 'card-front-view' : 'card-back-view'}
+                className={`${cardView}`}
                 alt=""
-                src={flipped || matchedImages ? `/img/${type}.png` : '/img/defaultImage.png'}
+                src={flipped || matchedImages ? `/svg/${type}.svg` : '/svg/default.svg'}
                 style={{
                     width, height
                 }}
             />
         </div>
     </div>
+    ) 
 }
 
 Card.propTypes = {

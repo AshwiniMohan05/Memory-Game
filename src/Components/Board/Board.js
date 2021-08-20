@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Card from '../Card/Card';
+import './board.css';
 
 export default function Board({
     cards,
@@ -9,18 +10,17 @@ export default function Board({
     disabled,
     matchedImages
 }) {
-    return <div className="board">
+    return <div className="board-wrapper">
         {
             cards.map((card) => (
                 <Card
                   key={card.id}
                   id={card.id}
                   type={card.type}
-                  width={200}
-                  height={200}
+                  width={100}
+                  height={100}
                   flipped={flipped.includes(card.id)}
                   handleClick={handleClick}
-                  disabled={disabled}
                   matchedImages={matchedImages.includes(card.id)}
                 />
             ))
@@ -32,7 +32,6 @@ Board.propTypes = {
     cards: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
     flipped: PropTypes.arrayOf(PropTypes.number).isRequired,
     handleClick: PropTypes.func.isRequired,
-    disabled: PropTypes.bool.isRequired,
     matchedImages: PropTypes.bool.isRequired
 }
 

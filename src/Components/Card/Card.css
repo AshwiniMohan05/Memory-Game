@@ -1,8 +1,8 @@
 .card-container{
     display: inline-block;
     perspective: 1000px;
-    border: 1px solid white;
-    background: black;
+    border: 1px solid black;
+    margin: 10px;
 }
 
 .card-container.flipped .card-flipper{
@@ -17,7 +17,6 @@
 
 .card-front-view,
 .card-back-view{
-    /* backface-visibility: hidden; */
     position: absolute;
     left: 0;
     top: 0;
@@ -25,7 +24,6 @@
 
 .card-back-view{
     z-index: 2;
-    transform: rotateY(0deg);
 }
 
 .card-front-view{
